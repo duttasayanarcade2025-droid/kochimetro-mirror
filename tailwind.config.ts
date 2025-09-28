@@ -22,7 +22,11 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          hover: "hsl(var(--primary-hover))",
         },
+        'metro-teal': "hsl(var(--metro-teal))",
+        'metro-dark': "hsl(var(--metro-dark))",
+        'metro-blue-light': "hsl(var(--metro-blue-light))",
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -57,6 +61,17 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+      },
+      fontFamily: {
+        primary: ['Open Sans', 'sans-serif'],
+        heading: ['Titillium Web', 'sans-serif'],
+      },
+      backgroundImage: {
+        'metro-gradient': 'var(--metro-gradient)',
+      },
+      boxShadow: {
+        'elegant': 'var(--shadow-elegant)',
+        'card': 'var(--shadow-card)',
       },
       borderRadius: {
         lg: "var(--radius)",
