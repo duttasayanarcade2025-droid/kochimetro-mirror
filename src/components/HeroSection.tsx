@@ -63,7 +63,7 @@ const HeroSection = () => {
           </p>
           
           {/* Enhanced Station Labels with Pill-shaped Badges */}
-          <div className="absolute inset-0 hidden lg:block">
+          /* {/* <div className="absolute inset-0 hidden lg:block">
             {/* Enhanced station badges with better visibility and hover effects */}
             <div className="absolute top-1/4 left-8 station-badge">Aluva</div>
             <div className="absolute top-1/3 left-24 station-badge">Pulinchodu</div>
@@ -87,7 +87,7 @@ const HeroSection = () => {
             <div className="absolute bottom-1/3 right-80 station-badge">Vadakkekotta</div>
             <div className="absolute bottom-1/4 right-88 station-badge">SN Junction</div>
             <div className="absolute bottom-1/5 right-96 station-badge">Tripunithura</div>
-          </div>
+          </div> */} */
           
           {/* Floating Particles */}
           <div className="floating-particles">
