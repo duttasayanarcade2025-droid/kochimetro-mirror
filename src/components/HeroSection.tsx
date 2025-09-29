@@ -49,7 +49,7 @@ const HeroSection = () => {
       <div className="relative z-10 container-custom text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-6 animate-fade-in-up text-shadow-strong">
-            <span className="inline-block text-overlay gradient-text-enhanced">
+            <span className="inline-block text-overlay">
               Kochi Metro
             </span>
           </h1>
