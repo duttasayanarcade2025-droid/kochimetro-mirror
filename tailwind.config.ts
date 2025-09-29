@@ -25,6 +25,7 @@ export default {
           hover: "hsl(var(--primary-hover))",
         },
         'metro-teal': "hsl(var(--metro-teal))",
+        'metro-blue': "hsl(var(--metro-blue))",
         'metro-dark': "hsl(var(--metro-dark))",
         'metro-blue-light': "hsl(var(--metro-blue-light))",
         secondary: {
@@ -168,6 +169,10 @@ export default {
         "fade-in-right": "fade-in-right 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards",
         "scale-in": "scale-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards",
         "float": "float 3s ease-in-out infinite",
+        "float-particle": "float-particle 15s infinite linear",
+        "gradient-shift": "gradient-shift 4s ease-in-out infinite",
+        "card-float": "card-float 4s ease-in-out infinite",
+        "magnetic-pull": "magnetic-pull 0.3s ease-out",
         "gradient-shift": "gradient-shift 8s ease-in-out infinite",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite"
       },

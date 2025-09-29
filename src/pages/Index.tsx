@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
 import WelcomeSection from '@/components/WelcomeSection';
+import MetroMap from '@/components/MetroMap';
 import HeadlinesSection from '@/components/HeadlinesSection';
 import MediaGallerySection from '@/components/MediaGallerySection';
 import StationsSection from '@/components/StationsSection';
@@ -15,6 +16,7 @@ const Index = () => {
       <Header />
       <HeroSection />
       <WelcomeSection />
+      <MetroMap />
       <HeadlinesSection />
       <MediaGallerySection />
       <StationsSection />

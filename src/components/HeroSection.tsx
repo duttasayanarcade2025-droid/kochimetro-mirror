@@ -54,7 +54,7 @@ const HeroSection = () => {
       <div className="relative z-10 container-custom text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-6 animate-fade-in-up text-shadow-strong">
-            <span className="inline-block animate-gradient-shift bg-gradient-to-r from-white via-metro-blue-light to-white bg-300% bg-clip-text">
+            <span className="inline-block gradient-text-enhanced">
               Kochi Metro
             </span>
           </h1>
@@ -62,31 +62,44 @@ const HeroSection = () => {
             Connecting Lives, Building Tomorrow
           </p>
           
-          {/* Enhanced Station Labels with Better Visibility */}
+          {/* Enhanced Station Labels with Pill-shaped Badges */}
           <div className="absolute inset-0 hidden lg:block">
-            {/* Station name labels positioned around the illustration with enhanced visibility */}
-            <div className="absolute top-1/4 left-8 text-overlay text-white font-medium text-sm">Aluva</div>
-            <div className="absolute top-1/3 left-24 text-overlay text-white font-medium text-sm">Pulinchodu</div>
-            <div className="absolute top-2/5 left-32 text-overlay text-white font-medium text-sm">Companypady</div>
-            <div className="absolute top-1/2 left-40 text-overlay text-white font-medium text-sm">Kalamassery</div>
-            <div className="absolute bottom-1/3 left-8 text-overlay text-white font-medium text-sm">Cochin University</div>
-            <div className="absolute bottom-1/4 left-24 text-overlay text-white font-medium text-sm">Edapally</div>
-            <div className="absolute bottom-1/5 left-48 text-overlay text-white font-medium text-sm">Changampuzha Park</div>
-            <div className="absolute bottom-1/6 right-48 text-overlay text-white font-medium text-sm">Palarivattom</div>
-            <div className="absolute bottom-1/4 right-32 text-overlay text-white font-medium text-sm">JLN Stadium</div>
-            <div className="absolute bottom-1/3 right-24 text-overlay text-white font-medium text-sm">Kaloor</div>
-            <div className="absolute bottom-2/5 right-16 text-overlay text-white font-medium text-sm">Town Hall</div>
-            <div className="absolute top-2/3 right-8 text-overlay text-white font-medium text-sm">M.G Road</div>
-            <div className="absolute top-3/5 right-24 text-overlay text-white font-medium text-sm">Maharaja's College</div>
-            <div className="absolute top-1/2 right-32 text-overlay text-white font-medium text-sm">Ernakulam south</div>
-            <div className="absolute top-2/5 right-40 text-overlay text-white font-medium text-sm">Kadavanthra</div>
-            <div className="absolute top-1/3 right-48 text-overlay text-white font-medium text-sm">Elamkulam</div>
-            <div className="absolute bottom-3/5 right-56 text-overlay text-white font-medium text-sm">Vytilla</div>
-            <div className="absolute bottom-1/2 right-64 text-overlay text-white font-medium text-sm">Thaikoodam</div>
-            <div className="absolute bottom-2/5 right-72 text-overlay text-white font-medium text-sm">Petta</div>
-            <div className="absolute bottom-1/3 right-80 text-overlay text-white font-medium text-sm">Vadakkekotta</div>
-            <div className="absolute bottom-1/4 right-88 text-overlay text-white font-medium text-sm">SN Junction</div>
-            <div className="absolute bottom-1/5 right-96 text-overlay text-white font-medium text-sm">Tripunithura</div>
+            {/* Enhanced station badges with better visibility and hover effects */}
+            <div className="absolute top-1/4 left-8 station-badge">Aluva</div>
+            <div className="absolute top-1/3 left-24 station-badge">Pulinchodu</div>
+            <div className="absolute top-2/5 left-32 station-badge">Companypady</div>
+            <div className="absolute top-1/2 left-40 station-badge">Kalamassery</div>
+            <div className="absolute bottom-1/3 left-8 station-badge">Cochin University</div>
+            <div className="absolute bottom-1/4 left-24 station-badge">Edapally</div>
+            <div className="absolute bottom-1/5 left-48 station-badge">Changampuzha Park</div>
+            <div className="absolute bottom-1/6 right-48 station-badge">Palarivattom</div>
+            <div className="absolute bottom-1/4 right-32 station-badge">JLN Stadium</div>
+            <div className="absolute bottom-1/3 right-24 station-badge">Kaloor</div>
+            <div className="absolute bottom-2/5 right-16 station-badge">Town Hall</div>
+            <div className="absolute top-2/3 right-8 station-badge">M.G Road</div>
+            <div className="absolute top-3/5 right-24 station-badge">Maharaja's College</div>
+            <div className="absolute top-1/2 right-32 station-badge">Ernakulam South</div>
+            <div className="absolute top-2/5 right-40 station-badge">Kadavanthra</div>
+            <div className="absolute top-1/3 right-48 station-badge">Elamkulam</div>
+            <div className="absolute bottom-3/5 right-56 station-badge">Vytilla</div>
+            <div className="absolute bottom-1/2 right-64 station-badge">Thaikoodam</div>
+            <div className="absolute bottom-2/5 right-72 station-badge">Petta</div>
+            <div className="absolute bottom-1/3 right-80 station-badge">Vadakkekotta</div>
+            <div className="absolute bottom-1/4 right-88 station-badge">SN Junction</div>
+            <div className="absolute bottom-1/5 right-96 station-badge">Tripunithura</div>
+          </div>
+          
+          {/* Floating Particles */}
+          <div className="floating-particles">
+            <div className="particle w-1 h-1" style={{ left: '10%', animationDelay: '0s' }}></div>
+            <div className="particle w-2 h-2" style={{ left: '20%', animationDelay: '2s' }}></div>
+            <div className="particle w-1.5 h-1.5" style={{ left: '30%', animationDelay: '4s' }}></div>
+            <div className="particle w-1 h-1" style={{ left: '40%', animationDelay: '6s' }}></div>
+            <div className="particle w-2 h-2" style={{ left: '50%', animationDelay: '8s' }}></div>
+            <div className="particle w-1.5 h-1.5" style={{ left: '60%', animationDelay: '10s' }}></div>
+            <div className="particle w-1 h-1" style={{ left: '70%', animationDelay: '12s' }}></div>
+            <div className="particle w-2 h-2" style={{ left: '80%', animationDelay: '14s' }}></div>
+            <div className="particle w-1.5 h-1.5" style={{ left: '90%', animationDelay: '1s' }}></div>
           </div>
         </div>
       </div>

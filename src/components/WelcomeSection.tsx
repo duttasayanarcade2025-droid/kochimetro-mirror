@@ -1,5 +1,6 @@
 import metroInterior from '@/assets/metro-interior.jpg';
 import AnimatedSection from './AnimatedSection';
+import FeatureCards from './FeatureCards';
 
 const WelcomeSection = () => {
   return (
@@ -51,6 +52,9 @@ const WelcomeSection = () => {
             </div>
           </AnimatedSection>
         </div>
+        
+        {/* Feature Cards Section */}
+        <FeatureCards />
       </div>
     </section>
   );
