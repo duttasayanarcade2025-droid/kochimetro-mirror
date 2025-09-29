@@ -236,7 +236,7 @@ const Header = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  LOGIN
+                  AGAMI
                 </a>
               </nav>
 
@@ -272,7 +272,7 @@ const Header = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      LOGIN
+                      AGAMI
                     </a>
                 </nav>
               </div>
