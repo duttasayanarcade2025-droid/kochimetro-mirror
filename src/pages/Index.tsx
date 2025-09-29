@@ -15,8 +15,8 @@ const Index = () => {
       <ScrollProgress />
       <Header />
       <HeroSection />
-      <WelcomeSection />
       <MetroMap />
+      <WelcomeSection />
       <HeadlinesSection />
       <MediaGallerySection />
       <StationsSection />
