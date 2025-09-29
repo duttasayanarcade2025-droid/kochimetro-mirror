@@ -1,5 +1,6 @@
 import { ArrowRight, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import InteractiveMap from './InteractiveMap';
 
 const StationsSection = () => {
   const stationRoutes = [
@@ -64,62 +65,9 @@ const StationsSection = () => {
             </div>
           </div>
 
-          {/* Map */}
+          {/* Interactive Map */}
           <div className="relative">
-            <div className="bg-white rounded-lg shadow-card p-4 h-96">
-              {/* Simplified map representation */}
-              <div className="relative w-full h-full bg-gradient-to-br from-green-200 to-green-100 rounded-lg overflow-hidden">
-                {/* Map background */}
-                <div className="absolute inset-0 bg-green-50">
-                  {/* Station markers */}
-                  <div className="absolute top-20 left-16 w-8 h-8 bg-metro-teal rounded-full flex items-center justify-center shadow-lg">
-                    <span className="text-white text-xs font-bold">5</span>
-                  </div>
-                  <div className="absolute top-32 left-24 w-8 h-8 bg-metro-teal rounded-full flex items-center justify-center shadow-lg">
-                    <span className="text-white text-xs font-bold">4</span>
-                  </div>
-                  <div className="absolute top-44 left-32 w-8 h-8 bg-metro-teal rounded-full flex items-center justify-center shadow-lg">
-                    <span className="text-white text-xs font-bold">6</span>
-                  </div>
-                  <div className="absolute bottom-32 right-24 w-8 h-8 bg-metro-teal rounded-full flex items-center justify-center shadow-lg">
-                    <span className="text-white text-xs font-bold">3</span>
-                  </div>
-                  
-                  {/* Location labels */}
-                  <div className="absolute top-12 left-8 text-xs font-medium text-gray-700">North Paravur</div>
-                  <div className="absolute top-24 right-8 text-xs font-medium text-gray-700">Perumbavoor</div>
-                  <div className="absolute bottom-20 left-8 text-xs font-medium text-gray-700">Kochi</div>
-                  <div className="absolute bottom-8 right-8 text-xs font-medium text-gray-700">Ernakulam</div>
-                  
-                  {/* Metro line representation */}
-                  <div className="absolute top-24 left-20 w-48 h-1 bg-metro-teal transform rotate-12 rounded-full"></div>
-                  <div className="absolute bottom-40 left-40 w-32 h-1 bg-metro-teal transform -rotate-12 rounded-full"></div>
-                </div>
-                
-                {/* Google branding */}
-                <div className="absolute bottom-2 left-2 bg-white px-2 py-1 rounded text-xs text-gray-600">
-                  Google
-                </div>
-                
-                {/* Map controls */}
-                <div className="absolute bottom-2 right-2 flex flex-col space-y-1">
-                  <Button variant="outline" size="sm" className="w-8 h-8 p-0 bg-white">
-                    <span className="text-gray-600">+</span>
-                  </Button>
-                  <Button variant="outline" size="sm" className="w-8 h-8 p-0 bg-white">
-                    <span className="text-gray-600">-</span>
-                  </Button>
-                </div>
-              </div>
-              
-              {/* Map legend */}
-              <div className="mt-4 text-xs text-gray-500 flex items-center justify-between">
-                <span>Keyboard shortcuts</span>
-                <span>Map data ©2025</span>
-                <span>Terms</span>
-                <span>Report a map error</span>
-              </div>
-            </div>
+            <InteractiveMap />
           </div>
         </div>
       </div>
