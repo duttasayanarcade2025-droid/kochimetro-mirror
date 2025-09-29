@@ -54,17 +54,16 @@ const HeroSection = () => {
       <div className="relative z-10 container-custom text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-6 animate-fade-in-up text-shadow-strong">
-            <span className="inline-block gradient-text-enhanced">
+            <span className="inline-block text-overlay gradient-text-enhanced">
               Kochi Metro
             </span>
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto text-shadow-strong animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <p className="text-xl md:text-2xl text-white mb-8 max-w-2xl mx-auto text-overlay animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
             Connecting Lives, Building Tomorrow
           </p>
           
           {/* Enhanced Station Labels with Pill-shaped Badges */}
-          /* {/* <div className="absolute inset-0 hidden lg:block">
-            {/* Enhanced station badges with better visibility and hover effects */}
+          <div className="absolute inset-0 hidden lg:block">
             <div className="absolute top-1/4 left-8 station-badge">Aluva</div>
             <div className="absolute top-1/3 left-24 station-badge">Pulinchodu</div>
             <div className="absolute top-2/5 left-32 station-badge">Companypady</div>
@@ -87,7 +86,7 @@ const HeroSection = () => {
             <div className="absolute bottom-1/3 right-80 station-badge">Vadakkekotta</div>
             <div className="absolute bottom-1/4 right-88 station-badge">SN Junction</div>
             <div className="absolute bottom-1/5 right-96 station-badge">Tripunithura</div>
-          </div> */} */
+          </div>
           
           {/* Floating Particles */}
           <div className="floating-particles">
