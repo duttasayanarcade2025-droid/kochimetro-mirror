@@ -25,7 +25,7 @@ const WelcomeSection = () => {
           {/* Content */}
           <AnimatedSection animation="fade-in-right" delay={200} className="order-1 lg:order-2">
             <h2 className="text-4xl lg:text-5xl font-heading font-bold text-gray-900 mb-6">
-              Welcome To The Most <span className="gradient-text text-shadow-strong">Advanced Metro System</span> In India
+              Welcome To The Most <span className="gradient-text">Advanced Metro System</span> In India
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed mb-8 font-medium">
               Our objective is to make Kochi the first city in the country where the entire public transport system: the metro, the buses, the boats, the auto-rickshaws and the taxies work together as a seamless integrated system; with a common timetable, common ticketing and centralised 'command and control'.
