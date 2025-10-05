@@ -5,6 +5,7 @@ import MetroMap from '@/components/MetroMap';
 import HeadlinesSection from '@/components/HeadlinesSection';
 import MediaGallerySection from '@/components/MediaGallerySection';
 import StationsSection from '@/components/StationsSection';
+import TicketingSection from '@/components/TicketingSection';
 import InnovationsSection from '@/components/InnovationsSection';
 import Footer from '@/components/Footer';
 import ScrollProgress from '@/components/ScrollProgress';
@@ -20,6 +21,7 @@ const Index = () => {
       <HeadlinesSection />
       <MediaGallerySection />
       <StationsSection />
+      <TicketingSection />
       <InnovationsSection />
       <Footer />
     </div>

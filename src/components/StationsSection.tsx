@@ -1,24 +1,22 @@
 import { ArrowRight, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import InteractiveMap from './InteractiveMap';
+import { stations, getStationsByLine } from '@/data/stationsData';
 
 const StationsSection = () => {
+  const line1Stations = getStationsByLine("Line 1");
+  const line2Stations = getStationsByLine("Line 2");
+
   const stationRoutes = [
     {
       line: "Line 1",
-      stations: [
-        "Aluva", "Pulinchodu", "Companypady", "Ambattukavu", "Muttom", 
-        "Kalamassery", "Cochin University", "Pathadipalam", "Edapally", 
-        "Changampuzha Park", "Palarivattom", "JLN Stadium", "Kaloor", 
-        "Town Hall", "M.G Road", "Maharaja's College", "Ernakulam south"
-      ]
+      stations: line1Stations,
+      color: "metro-teal"
     },
     {
       line: "Line 2",
-      stations: [
-        "Kadavanthra", "Elamkulam", "Vytilla", "Thaikoodam", "Petta", 
-        "Vadakkekotta", "SN Junction", "Tripunithura"
-      ]
+      stations: line2Stations,
+      color: "metro-purple"
     }
   ];
 
@@ -43,19 +41,20 @@ const StationsSection = () => {
             <div className="space-y-6">
               {stationRoutes.map((route) => (
                 <div key={route.line}>
-                  <h4 className="font-semibold text-lg text-gray-900 mb-3">{route.line}</h4>
+                  <h4 className="font-semibold text-lg mb-3">{route.line}</h4>
                   <div className="flex flex-wrap gap-2">
                     {route.stations.map((station, index) => (
-                      <span key={index} className="flex items-center">
+                      <span key={station.id} className="flex items-center">
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="text-metro-teal hover:text-metro-teal hover:bg-metro-teal/10 p-1 h-auto font-normal"
+                          className={`text-${route.color} hover:text-${route.color} hover:bg-${route.color}/10 p-2 h-auto font-normal text-sm`}
+                          title={`${station.name} (${station.code})`}
                         >
-                          {station}
+                          {station.name}
                         </Button>
                         {index < route.stations.length - 1 && (
-                          <ArrowRight className="w-3 h-3 text-gray-400 mx-1" />
+                          <ArrowRight className="w-3 h-3 text-muted-foreground mx-1" />
                         )}
                       </span>
                     ))}
