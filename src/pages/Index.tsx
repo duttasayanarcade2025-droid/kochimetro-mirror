@@ -6,6 +6,9 @@ import HeadlinesSection from '@/components/HeadlinesSection';
 import MediaGallerySection from '@/components/MediaGallerySection';
 import StationsSection from '@/components/StationsSection';
 import TicketingSection from '@/components/TicketingSection';
+import SchedulesSection from '@/components/SchedulesSection';
+import NewsSection from '@/components/NewsSection';
+import DownloadsSection from '@/components/DownloadsSection';
 import InnovationsSection from '@/components/InnovationsSection';
 import Footer from '@/components/Footer';
 import ScrollProgress from '@/components/ScrollProgress';
@@ -22,6 +25,9 @@ const Index = () => {
       <MediaGallerySection />
       <StationsSection />
       <TicketingSection />
+      <SchedulesSection />
+      <NewsSection />
+      <DownloadsSection />
       <InnovationsSection />
       <Footer />
     </div>
