@@ -2,63 +2,42 @@ import { Play, Image as ImageIcon, Video } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import metroTrain from '@/assets/metro-train.jpg';
-
 const MediaGallerySection = () => {
-  const mediaItems = [
-    {
-      id: 1,
-      type: 'video',
-      title: 'Kochi Metro Rail being a perfect blend of advanced technology',
-      thumbnail: metroTrain,
-      duration: '2:45'
-    },
-    {
-      id: 2,
-      type: 'image',
-      title: 'Metro Station Certificate',
-      thumbnail: '/api/placeholder/300/200'
-    },
-    {
-      id: 3,
-      type: 'image',
-      title: 'Train Operations',
-      thumbnail: '/api/placeholder/300/200'
-    },
-    {
-      id: 4,
-      type: 'image',
-      title: 'Metro Interior Design',
-      thumbnail: '/api/placeholder/300/200'
-    }
-  ];
-
-  return (
-    <section className="section-padding bg-white">
+  const mediaItems = [{
+    id: 1,
+    type: 'video',
+    title: 'Kochi Metro Rail being a perfect blend of advanced technology',
+    thumbnail: metroTrain,
+    duration: '2:45'
+  }, {
+    id: 2,
+    type: 'image',
+    title: 'Metro Station Certificate',
+    thumbnail: '/api/placeholder/300/200'
+  }, {
+    id: 3,
+    type: 'image',
+    title: 'Train Operations',
+    thumbnail: '/api/placeholder/300/200'
+  }, {
+    id: 4,
+    type: 'image',
+    title: 'Metro Interior Design',
+    thumbnail: '/api/placeholder/300/200'
+  }];
+  return <section className="section-padding bg-white">
       <div className="container-custom">
         {/* Creative Text Wrap Layout */}
         <div className="text-wrap-content mb-12">
           <div className="relative group cursor-pointer shape-float-right shape-ellipse w-full max-w-md h-96 overflow-hidden">
-            <img
-              src={metroTrain}
-              alt="Kochi Metro Video"
-              className="w-full h-full object-cover shadow-card"
-            />
+            <img src={metroTrain} alt="Kochi Metro Video" className="w-full h-full object-cover shadow-card" />
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors flex items-center justify-center">
               <Button size="lg" className="bg-white/20 hover:bg-white/30 text-white border-2 border-white/50 rounded-full w-16 h-16 p-0">
                 <Play className="w-6 h-6 ml-1" fill="currentColor" />
               </Button>
             </div>
             <div className="absolute bottom-4 left-4 right-4">
-              <div className="bg-black/50 rounded p-2">
-                <p className="text-white text-sm font-medium">
-                  Kochi Metro Rail being a perfect blend of advanced technology
-                </p>
-                <div className="flex items-center mt-1 text-white/80 text-xs">
-                  <Video className="w-3 h-3 mr-1" />
-                  Watch later
-                  <span className="ml-auto">Share</span>
-                </div>
-              </div>
+              
             </div>
           </div>
 
@@ -77,17 +56,12 @@ const MediaGallerySection = () => {
 
           {/* Gallery Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-            {mediaItems.slice(1).map((item) => (
-              <Card key={item.id} className="group cursor-pointer hover:shadow-lg transition-all duration-300">
+            {mediaItems.slice(1).map(item => <Card key={item.id} className="group cursor-pointer hover:shadow-lg transition-all duration-300">
                 <CardContent className="p-0 relative">
                   <div className="relative overflow-hidden rounded-lg">
                     <div className="w-full h-32 bg-gradient-to-br from-metro-teal to-blue-400"></div>
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                      {item.type === 'video' ? (
-                        <Play className="w-6 h-6 text-white" fill="currentColor" />
-                      ) : (
-                        <ImageIcon className="w-6 h-6 text-white" />
-                      )}
+                      {item.type === 'video' ? <Play className="w-6 h-6 text-white" fill="currentColor" /> : <ImageIcon className="w-6 h-6 text-white" />}
                     </div>
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
@@ -96,8 +70,7 @@ const MediaGallerySection = () => {
                     </p>
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
 
           <Button className="bg-metro-teal hover:bg-metro-teal/90 text-white">
@@ -105,8 +78,6 @@ const MediaGallerySection = () => {
           </Button>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default MediaGallerySection;
