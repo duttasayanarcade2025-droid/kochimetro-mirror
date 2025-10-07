@@ -240,6 +240,53 @@ All colors MUST be HSL.
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
+/* Shape Outside Text Wrapping */
+.shape-float-left {
+  float: left;
+  shape-margin: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+}
+
+.shape-float-right {
+  float: right;
+  shape-margin: 2rem;
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.shape-circle {
+  shape-outside: circle(50%);
+  clip-path: circle(50%);
+}
+
+.shape-ellipse {
+  shape-outside: ellipse(40% 50%);
+  border-radius: 50%;
+}
+
+.shape-organic {
+  shape-outside: polygon(
+    0% 20%, 20% 0%, 50% 5%, 80% 0%, 100% 20%,
+    100% 50%, 95% 80%, 80% 100%, 50% 95%,
+    20% 100%, 0% 80%, 5% 50%
+  );
+  clip-path: polygon(
+    0% 20%, 20% 0%, 50% 5%, 80% 0%, 100% 20%,
+    100% 50%, 95% 80%, 80% 100%, 50% 95%,
+    20% 100%, 0% 80%, 5% 50%
+  );
+}
+
+.shape-diagonal {
+  shape-outside: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+.text-wrap-content {
+  overflow: hidden;
+}
+
 /* 3D Card Effects with Enhanced Depth */
 .card-3d {
   perspective: 1000px;

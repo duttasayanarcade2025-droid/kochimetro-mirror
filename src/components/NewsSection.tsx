@@ -89,41 +89,45 @@ const NewsSection = () => {
           </p>
         </div>
 
-        {/* Featured News */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {newsItems.slice(0, 2).map((item) => (
-            <Card key={item.id} className="overflow-hidden hover-lift">
-              <div className="h-48 bg-gradient-to-br from-metro-teal/20 to-metro-blue/20 flex items-center justify-center">
-                <TrendingUp className="w-16 h-16 text-metro-teal/30" />
+        {/* Featured News with Creative Layout */}
+        <div className="mb-12">
+          {newsItems.slice(0, 2).map((item, index) => (
+            <div key={item.id} className={`text-wrap-content mb-12 ${index > 0 ? 'mt-16' : ''}`}>
+              <div className={`${index % 2 === 0 ? 'shape-float-left' : 'shape-float-right'} shape-circle w-80 h-80 bg-gradient-to-br from-metro-teal/20 to-metro-blue/20 flex items-center justify-center shadow-lg hover-lift transition-all duration-300`}>
+                <TrendingUp className="w-24 h-24 text-metro-teal/40" />
               </div>
-              <CardHeader>
-                <div className="flex items-center justify-between mb-2">
-                  <Badge variant="outline" className={getCategoryColor(item.category)}>
-                    {item.category}
-                  </Badge>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="w-4 h-4" />
-                    {new Date(item.date).toLocaleDateString('en-US', { 
-                      month: 'short', 
-                      day: 'numeric', 
-                      year: 'numeric' 
-                    })}
-                  </div>
+              
+              <div className="mb-4 flex items-center gap-3">
+                <Badge variant="outline" className={getCategoryColor(item.category)}>
+                  {item.category}
+                </Badge>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Calendar className="w-4 h-4" />
+                  {new Date(item.date).toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric', 
+                    year: 'numeric' 
+                  })}
                 </div>
-                <CardTitle className="text-xl hover:text-metro-teal transition-colors cursor-pointer">
-                  {item.title}
-                </CardTitle>
-                <CardDescription className="text-base leading-relaxed">
-                  {item.excerpt}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button variant="ghost" className="group">
-                  Read More
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </CardContent>
-            </Card>
+              </div>
+              
+              <h3 className="text-3xl font-heading font-bold text-foreground mb-4 hover:text-metro-teal transition-colors cursor-pointer">
+                {item.title}
+              </h3>
+              
+              <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                {item.excerpt}
+              </p>
+              
+              <p className="text-base text-muted-foreground leading-relaxed mb-6">
+                This significant development showcases Kochi Metro's commitment to continuous improvement and passenger satisfaction. Our team is dedicated to implementing innovative solutions that enhance the overall travel experience while maintaining the highest standards of safety and efficiency. Stay tuned for more updates as we continue to evolve and expand our services.
+              </p>
+              
+              <Button variant="ghost" className="group">
+                Read Full Article
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
           ))}
         </div>
 
