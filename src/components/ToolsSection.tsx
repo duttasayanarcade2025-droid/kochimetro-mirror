@@ -1,8 +1,9 @@
-import { Calculator, Route, Activity, Smartphone } from 'lucide-react';
+import { Calculator, Route, Activity, Smartphone, Map } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import FareCalculator from './FareCalculator';
 import JourneyPlanner from './JourneyPlanner';
 import LiveTrainInfo from './LiveTrainInfo';
+import TomTom3DMap from './TomTom3DMap';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
@@ -23,8 +24,12 @@ const ToolsSection = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="journey" className="w-full">
-          <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-3 mb-8">
+        <Tabs defaultValue="3dmap" className="w-full">
+          <TabsList className="grid w-full max-w-4xl mx-auto grid-cols-4 mb-8">
+            <TabsTrigger value="3dmap" className="gap-2">
+              <Map className="w-4 h-4" />
+              3D Map
+            </TabsTrigger>
             <TabsTrigger value="journey" className="gap-2">
               <Route className="w-4 h-4" />
               Journey Planner
@@ -38,6 +43,10 @@ const ToolsSection = () => {
               Live Trains
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="3dmap" className="max-w-6xl mx-auto">
+            <TomTom3DMap />
+          </TabsContent>
 
           <TabsContent value="journey" className="space-y-6">
             <JourneyPlanner />
