@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Route, Clock, MapPin, ArrowRight } from 'lucide-react';
+import { Route, Clock, MapPin, ArrowRight, Navigation2, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -9,16 +9,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { stations, Station } from '@/data/stationsData';
+import { stations } from '@/data/stationsData';
 import { Badge } from '@/components/ui/badge';
-
-interface JourneyResult {
-  stations: Station[];
-  duration: number;
-  fare: number;
-  line: string;
-  requiresTransfer: boolean;
-}
+import { planJourney as calculateJourney, JourneyResult } from '@/lib/journeyPlanner';
 
 const JourneyPlanner = () => {
   const [fromStation, setFromStation] = useState<string>('');
@@ -27,53 +20,11 @@ const JourneyPlanner = () => {
 
   const planJourney = () => {
     if (!fromStation || !toStation) return;
-
-    const from = stations.find(s => s.id === fromStation);
-    const to = stations.find(s => s.id === toStation);
-
-    if (!from || !to) return;
-
-    // Check if transfer is needed
-    const requiresTransfer = from.line !== to.line;
     
-    // Get intermediate stations
-    let routeStations: Station[] = [];
-    
-    if (!requiresTransfer) {
-      // Same line, get all stations between
-      const lineStations = stations.filter(s => s.line === from.line);
-      const fromIndex = lineStations.findIndex(s => s.id === from.id);
-      const toIndex = lineStations.findIndex(s => s.id === to.id);
-      
-      if (fromIndex < toIndex) {
-        routeStations = lineStations.slice(fromIndex, toIndex + 1);
-      } else {
-        routeStations = lineStations.slice(toIndex, fromIndex + 1).reverse();
-      }
-    } else {
-      // Transfer needed - simplified route via common interchange
-      routeStations = [from, to];
+    const result = calculateJourney(fromStation, toStation);
+    if (result) {
+      setJourney(result);
     }
-
-    // Calculate duration (approximately 2 minutes per station + 1 minute wait)
-    const stationCount = routeStations.length - 1;
-    const duration = stationCount * 2 + 1 + (requiresTransfer ? 5 : 0);
-
-    // Calculate fare
-    const distance = Math.abs(from.distance - to.distance);
-    let fare = 10;
-    if (distance > 2) fare = 20;
-    if (distance > 5) fare = 30;
-    if (distance > 10) fare = 40;
-    if (distance > 15) fare = 50;
-
-    setJourney({
-      stations: routeStations,
-      duration,
-      fare,
-      line: from.line,
-      requiresTransfer
-    });
   };
 
   return (
@@ -138,12 +89,12 @@ const JourneyPlanner = () => {
             <div className="grid grid-cols-3 gap-4">
               <div className="bg-muted/50 p-4 rounded-lg text-center">
                 <Clock className="w-5 h-5 mx-auto mb-2 text-metro-teal" />
-                <p className="text-2xl font-bold">{journey.duration}</p>
+                <p className="text-2xl font-bold">{journey.totalDuration}</p>
                 <p className="text-xs text-muted-foreground">minutes</p>
               </div>
               <div className="bg-muted/50 p-4 rounded-lg text-center">
                 <MapPin className="w-5 h-5 mx-auto mb-2 text-metro-teal" />
-                <p className="text-2xl font-bold">{journey.stations.length - 1}</p>
+                <p className="text-2xl font-bold">{journey.totalStops}</p>
                 <p className="text-xs text-muted-foreground">stops</p>
               </div>
               <div className="bg-muted/50 p-4 rounded-lg text-center">
@@ -153,48 +104,101 @@ const JourneyPlanner = () => {
               </div>
             </div>
 
-            {/* Route Details */}
-            <div className="bg-gradient-to-r from-metro-teal/10 to-metro-purple/10 p-4 rounded-lg border border-metro-teal/20">
-              <div className="flex items-center justify-between mb-4">
-                <h4 className="font-semibold">Route Details</h4>
-                <Badge variant="secondary">{journey.line}</Badge>
-              </div>
-              
-              {journey.requiresTransfer && (
-                <div className="bg-yellow-500/10 border border-yellow-500/20 p-3 rounded mb-4">
-                  <p className="text-sm text-yellow-700 dark:text-yellow-500 font-medium">
-                    ⚠️ Transfer required between lines
-                  </p>
-                </div>
-              )}
-
-              <div className="space-y-2">
-                {journey.stations.map((station, index) => (
-                  <div key={station.id} className="flex items-center gap-3">
-                    <div className="flex flex-col items-center">
-                      <div className={`w-3 h-3 rounded-full ${
-                        index === 0 || index === journey.stations.length - 1
-                          ? 'bg-metro-teal'
-                          : 'bg-metro-teal/50'
-                      }`} />
-                      {index < journey.stations.length - 1 && (
-                        <div className="w-0.5 h-8 bg-metro-teal/30" />
-                      )}
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-medium">{station.name}</p>
-                      <p className="text-xs text-muted-foreground">{station.code}</p>
-                    </div>
-                    {index === 0 && (
-                      <Badge variant="outline" className="text-xs">Start</Badge>
-                    )}
-                    {index === journey.stations.length - 1 && (
-                      <Badge variant="outline" className="text-xs">End</Badge>
-                    )}
+            {/* Transfer Alert */}
+            {journey.requiresTransfer && journey.transferStation && (
+              <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 p-4 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <Navigation2 className="w-5 h-5 text-yellow-600 dark:text-yellow-400 mt-0.5" />
+                  <div>
+                    <p className="font-medium text-yellow-700 dark:text-yellow-400">
+                      Transfer Required
+                    </p>
+                    <p className="text-sm text-yellow-600/80 dark:text-yellow-400/80 mt-1">
+                      Change trains at <span className="font-semibold">{journey.transferStation.name}</span> • Additional 5 minutes
+                    </p>
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* Route Segments */}
+            {journey.segments.map((segment, segmentIndex) => (
+              <div 
+                key={segmentIndex}
+                className="bg-gradient-to-r from-metro-teal/10 to-metro-purple/10 p-4 rounded-lg border border-metro-teal/20"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <Zap className="w-4 h-4 text-metro-teal" />
+                    <h4 className="font-semibold">
+                      {segmentIndex === 0 ? 'Start Journey' : 'After Transfer'}
+                    </h4>
+                  </div>
+                  <Badge 
+                    variant="secondary"
+                    className={segment.line === 'Line 1' ? 'bg-metro-teal/20' : 'bg-metro-purple/20'}
+                  >
+                    {segment.line}
+                  </Badge>
+                </div>
+
+                <div className="space-y-2">
+                  {segment.stations.map((station, stationIndex) => {
+                    const isFirst = segmentIndex === 0 && stationIndex === 0;
+                    const isLast = segmentIndex === journey.segments.length - 1 && 
+                                   stationIndex === segment.stations.length - 1;
+                    const isTransfer = journey.requiresTransfer && 
+                                      stationIndex === segment.stations.length - 1 &&
+                                      segmentIndex < journey.segments.length - 1;
+                    
+                    return (
+                      <div key={station.id} className="flex items-center gap-3">
+                        <div className="flex flex-col items-center">
+                          <div className={`w-3 h-3 rounded-full ${
+                            isFirst || isLast || isTransfer
+                              ? segment.line === 'Line 1' ? 'bg-metro-teal' : 'bg-metro-purple'
+                              : segment.line === 'Line 1' ? 'bg-metro-teal/50' : 'bg-metro-purple/50'
+                          } ${isTransfer ? 'ring-4 ring-yellow-400/30' : ''}`} />
+                          {stationIndex < segment.stations.length - 1 && (
+                            <div className={`w-0.5 h-8 ${
+                              segment.line === 'Line 1' ? 'bg-metro-teal/30' : 'bg-metro-purple/30'
+                            }`} />
+                          )}
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-medium">{station.name}</p>
+                          <p className="text-xs text-muted-foreground">{station.code}</p>
+                        </div>
+                        <div className="flex gap-1">
+                          {isFirst && (
+                            <Badge variant="outline" className="text-xs bg-green-500/10 border-green-500/20">
+                              Start
+                            </Badge>
+                          )}
+                          {isTransfer && (
+                            <Badge variant="outline" className="text-xs bg-yellow-500/10 border-yellow-500/20">
+                              Transfer
+                            </Badge>
+                          )}
+                          {isLast && (
+                            <Badge variant="outline" className="text-xs bg-red-500/10 border-red-500/20">
+                              End
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="mt-3 pt-3 border-t border-metro-teal/20 flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">
+                    {segment.stations.length - 1} stop{segment.stations.length - 1 !== 1 ? 's' : ''}
+                  </span>
+                  <span className="font-medium">~{segment.duration} min</span>
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </CardContent>

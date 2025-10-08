@@ -30,25 +30,27 @@ const TomTom3DMap = () => {
       zoom: 11,
       pitch: 60, // 3D tilt
       bearing: 0,
-      style: 'tomtom://vector/1/basic-main',
+      style: `https://api.tomtom.com/style/1/style/22.2.1-*?map=basic_main&key=${TOMTOM_API_KEY}`,
     });
 
     // Add navigation controls
     map.current.addControl(new tt.NavigationControl());
     map.current.addControl(new tt.FullscreenControl());
 
-    // Add 3D buildings
+    // Add 3D buildings and terrain
     map.current.on('load', () => {
-      // Add terrain/elevation layer using OpenTopo data
-      map.current.addSource('dem', {
+      // Add terrain/elevation using Mapbox Terrain-RGB
+      map.current.addSource('mapbox-dem', {
         type: 'raster-dem',
-        tiles: [
-          `https://tile.opentopomap.org/{z}/{x}/{y}.png?key=${OPENTOPOMAP_KEY}`
-        ],
+        url: 'https://api.mapbox.com/v4/mapbox.terrain-rgb/{z}/{x}/{y}.pngraw?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA',
         tileSize: 256,
+        maxzoom: 14
       });
 
-      map.current.setTerrain({ source: 'dem', exaggeration: 1.5 });
+      map.current.setTerrain({ 
+        source: 'mapbox-dem', 
+        exaggeration: 1.8 
+      });
 
       // Add 3D building layer
       const layers = map.current.getStyle().layers;
