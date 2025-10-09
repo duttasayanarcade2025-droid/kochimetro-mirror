@@ -39,58 +39,51 @@ const TomTom3DMap = () => {
 
     // Add 3D buildings and terrain
     map.current.on('load', () => {
-      // Add terrain/elevation using Mapbox Terrain-RGB
-      map.current.addSource('mapbox-dem', {
-        type: 'raster-dem',
-        url: 'https://api.mapbox.com/v4/mapbox.terrain-rgb/{z}/{x}/{y}.pngraw?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA',
-        tileSize: 256,
-        maxzoom: 14
-      });
-
-      map.current.setTerrain({ 
-        source: 'mapbox-dem', 
-        exaggeration: 1.8 
-      });
-
-      // Add 3D building layer
+      // Remove Mapbox terrain - TomTom doesn't support setTerrain
+      // Instead, we'll use TomTom's native 3D building support
+      
+      // Add 3D building layer using TomTom's vector data
       const layers = map.current.getStyle().layers;
       const labelLayerId = layers.find(
-        (layer: any) => layer.type === 'symbol' && layer.layout['text-field']
+        (layer: any) => layer.type === 'symbol' && layer.layout && layer.layout['text-field']
       )?.id;
 
-      map.current.addLayer(
-        {
-          id: '3d-buildings',
-          source: 'composite',
-          'source-layer': 'building',
-          filter: ['==', 'extrude', 'true'],
-          type: 'fill-extrusion',
-          minzoom: 14,
-          paint: {
-            'fill-extrusion-color': '#aaa',
-            'fill-extrusion-height': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
-              15,
-              0,
-              15.05,
-              ['get', 'height']
-            ],
-            'fill-extrusion-base': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
-              15,
-              0,
-              15.05,
-              ['get', 'min_height']
-            ],
-            'fill-extrusion-opacity': 0.6
-          }
-        },
-        labelLayerId
-      );
+      // TomTom has built-in 3D building support in their vector tiles
+      if (!map.current.getLayer('3d-buildings')) {
+        map.current.addLayer(
+          {
+            id: '3d-buildings',
+            source: 'vector',
+            'source-layer': 'Building',
+            filter: ['==', 'extrude', 'true'],
+            type: 'fill-extrusion',
+            minzoom: 14,
+            paint: {
+              'fill-extrusion-color': '#aaa',
+              'fill-extrusion-height': [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                14,
+                0,
+                14.05,
+                ['get', 'height']
+              ],
+              'fill-extrusion-base': [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                14,
+                0,
+                14.05,
+                ['get', 'min_height']
+              ],
+              'fill-extrusion-opacity': 0.7
+            }
+          },
+          labelLayerId
+        );
+      }
 
       // Add metro lines
       const line1Coords = stations

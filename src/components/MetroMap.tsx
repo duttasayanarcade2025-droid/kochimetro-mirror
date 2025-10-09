@@ -79,9 +79,12 @@ const MetroMap = () => {
       }, delay);
     });
 
-    // Mouse movement tracking for parallax effect
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => document.removeEventListener('mousemove', handleMouseMove);
+    // Mouse movement tracking for parallax effect with passive listener
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener('mousemove', handleMouseMove, { passive: true });
+      return () => container.removeEventListener('mousemove', handleMouseMove);
+    }
   }, [handleMouseMove]);
 
   return (

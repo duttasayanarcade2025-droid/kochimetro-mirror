@@ -21,8 +21,12 @@ interface InteractiveMapProps {
 const InteractiveMap: React.FC<InteractiveMapProps> = ({ className = "" }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-  const [mapboxToken, setMapboxToken] = useState<string>('');
-  const [isTokenSet, setIsTokenSet] = useState(false);
+  const [mapboxToken, setMapboxToken] = useState<string>(() => {
+    return localStorage.getItem('mapboxToken') || '';
+  });
+  const [isTokenSet, setIsTokenSet] = useState(() => {
+    return localStorage.getItem('mapboxTokenSet') === 'true';
+  });
 
   const initializeMap = (token: string) => {
     if (!mapContainer.current) return;
@@ -198,10 +202,23 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className = "" }) => {
   const handleTokenSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (mapboxToken.trim()) {
+      // Store token in localStorage
+      localStorage.setItem('mapboxToken', mapboxToken.trim());
+      localStorage.setItem('mapboxTokenSet', 'true');
       setIsTokenSet(true);
       initializeMap(mapboxToken.trim());
     }
   };
+
+  // Initialize map on mount if token exists
+  useEffect(() => {
+    const storedToken = localStorage.getItem('mapboxToken');
+    const tokenIsSet = localStorage.getItem('mapboxTokenSet') === 'true';
+    
+    if (storedToken && tokenIsSet) {
+      initializeMap(storedToken);
+    }
+  }, []);
 
   useEffect(() => {
     return () => {

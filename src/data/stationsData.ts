@@ -24,7 +24,9 @@ export interface Station {
     weekend: string;
   };
   nearbyLandmarks: string[];
-  distance: number; // km from Aluva
+  distance: number; // km from line start
+  isInterchange?: boolean; // Indicates if this is an interchange station
+  connectedLines?: string[]; // Lines connected at this interchange
 }
 
 export const stations: Station[] = [
@@ -280,7 +282,9 @@ export const stations: Station[] = [
       weekend: "6:00 AM - 10:00 PM"
     },
     nearbyLandmarks: ["Palarivattom Flyover", "Commercial Hub"],
-    distance: 12
+    distance: 12,
+    isInterchange: true,
+    connectedLines: ["Line 1", "Line 2"]
   },
   {
     id: "jln-stadium",
@@ -372,7 +376,9 @@ export const stations: Station[] = [
       weekend: "6:00 AM - 10:00 PM"
     },
     nearbyLandmarks: ["Broadway", "Marine Drive", "Shopping District"],
-    distance: 16.8
+    distance: 16.8,
+    isInterchange: true,
+    connectedLines: ["Line 1", "Line 2"]
   },
   {
     id: "maharajas-college",

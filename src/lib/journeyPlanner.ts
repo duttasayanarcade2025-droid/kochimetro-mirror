@@ -45,13 +45,26 @@ const buildStationGraph = (): Map<string, GraphNode> => {
     }
   });
   
-  // Add transfer connections (Aluva is the interchange)
-  const aluvaLine1 = graph.get('aluva');
-  const aluvaLine2 = graph.get('aluva-line2');
+  // Add transfer connections at interchange stations
+  // Based on Kochi Metro, the main interchanges are:
+  // 1. MG Road - connects Line 1 and Line 2 (major interchange)
+  // 2. Palarivattom - near Line 2 stations (potential connection point)
   
-  if (aluvaLine1 && aluvaLine2) {
-    aluvaLine1.connections.push({ node: aluvaLine2, line: 'Transfer', weight: 5 }); // 5 min transfer
-    aluvaLine2.connections.push({ node: aluvaLine1, line: 'Transfer', weight: 5 });
+  const mgRoadLine1 = graph.get('mg-road');
+  const kadavanthraLine2 = graph.get('kadavanthra'); // Closest Line 2 station to MG Road area
+  
+  if (mgRoadLine1 && kadavanthraLine2) {
+    mgRoadLine1.connections.push({ node: kadavanthraLine2, line: 'Transfer', weight: 8 }); // 8 min transfer time
+    kadavanthraLine2.connections.push({ node: mgRoadLine1, line: 'Transfer', weight: 8 });
+  }
+  
+  // Add Palarivattom to Elamkulam connection
+  const palarivattomLine1 = graph.get('palarivattom');
+  const elamkulamLine2 = graph.get('elamkulam');
+  
+  if (palarivattomLine1 && elamkulamLine2) {
+    palarivattomLine1.connections.push({ node: elamkulamLine2, line: 'Transfer', weight: 7 }); // 7 min transfer
+    elamkulamLine2.connections.push({ node: palarivattomLine1, line: 'Transfer', weight: 7 });
   }
   
   return graph;
