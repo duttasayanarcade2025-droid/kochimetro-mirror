@@ -1,69 +1,78 @@
 import { useState } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Languages } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { Language } from '@/i18n/translations';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const { language, setLanguage, t } = useLanguage();
 
   const navigationItems = [
     { 
-      name: 'WHO WE ARE', 
+      name: t.whoWeAre, 
       href: '#who-we-are', 
       hasDropdown: true,
       dropdownItems: [
-        { name: 'About Us', href: '#about' },
-        { name: 'History', href: '#history' },
-        { name: 'Leadership', href: '#leadership' },
-        { name: 'Achievements', href: '#achievements' }
+        { name: t.aboutUs, href: '#about' },
+        { name: t.history, href: '#history' },
+        { name: t.leadership, href: '#leadership' },
+        { name: t.achievements, href: '#achievements' }
       ]
     },
     { 
-      name: 'WHAT WE DO', 
+      name: t.whatWeDo, 
       href: '#what-we-do', 
       hasDropdown: true,
       dropdownItems: [
-        { name: 'Operations', href: '#operations' },
-        { name: 'Projects', href: '#projects' },
-        { name: 'Future Plans', href: '#future-plans' },
-        { name: 'Maintenance', href: '#maintenance' }
+        { name: t.operations, href: '#operations' },
+        { name: t.projects, href: '#projects' },
+        { name: t.futurePlans, href: '#future-plans' },
+        { name: t.maintenance, href: '#maintenance' }
       ]
     },
     { 
-      name: 'ENVIRONMENT & SOCIAL', 
+      name: t.environmentSocial, 
       href: '#environment-social', 
       hasDropdown: true,
       dropdownItems: [
-        { name: 'Sustainability', href: '#sustainability' },
-        { name: 'CSR Initiatives', href: '#csr' },
-        { name: 'Green Practices', href: '#green-practices' },
-        { name: 'Reports', href: '#reports' }
+        { name: t.sustainability, href: '#sustainability' },
+        { name: t.csrInitiatives, href: '#csr' },
+        { name: t.greenPractices, href: '#green-practices' },
+        { name: t.reports, href: '#reports' }
       ]
     },
     { 
-      name: 'PASSENGER INFO', 
+      name: t.passengerInfo, 
       href: '#passenger-info', 
       hasDropdown: true,
       dropdownItems: [
-        { name: 'Routes & Lines', href: '#routes' },
-        { name: 'Fares & Tickets', href: '#fares' },
-        { name: 'Station Facilities', href: '#facilities' },
-        { name: 'Travel Guidelines', href: '#guidelines' }
+        { name: t.routes, href: '#routes' },
+        { name: t.faresTickets, href: '#fares' },
+        { name: t.stationFacilities, href: '#facilities' },
+        { name: t.travelGuidelines, href: '#guidelines' }
       ]
     },
     { 
-      name: 'VIGILANCE', 
+      name: t.vigilance, 
       href: '#vigilance', 
       hasDropdown: false 
     },
   ];
 
   const topBarItems = [
-    { name: 'RTI', href: '#rti' },
-    { name: 'NOTIFICATIONS & G. O S', href: '#notifications' },
-    { name: 'OPEN DATA', href: '#open-data' },
-    { name: 'PRIVACY POLICY', href: '#privacy' },
-    { name: 'NEWSLETTERS', href: '#newsletters' },
-    { name: 'GRIEVANCE REDRESSAL', href: '#grievance' }
+    { name: t.rti, href: '#rti' },
+    { name: t.notifications, href: '#notifications' },
+    { name: t.openData, href: '#open-data' },
+    { name: t.privacyPolicy, href: '#privacy' },
+    { name: t.newsletters, href: '#newsletters' },
+    { name: t.grievanceRedressal, href: '#grievance' }
+  ];
+
+  const languageOptions: { code: Language; label: string; flag: string }[] = [
+    { code: 'en', label: 'English', flag: '🇬🇧' },
+    { code: 'ml', label: 'മലയാളം', flag: '🇮🇳' },
+    { code: 'hi', label: 'हिंदी', flag: '🇮🇳' },
   ];
 
   const buttonStyles = `
@@ -188,13 +197,43 @@ const Header = () => {
                     )}
                   </div>
                 ))}
+                
+                {/* Language Switcher */}
+                <div className="relative group">
+                  <button
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors border border-white/20"
+                    aria-label="Change language"
+                  >
+                    <Languages className="w-4 h-4" />
+                    <span className="text-sm font-medium">
+                      {languageOptions.find((l) => l.code === language)?.flag}
+                    </span>
+                    <ChevronDown className="w-3 h-3" />
+                  </button>
+                  
+                  <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    {languageOptions.map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => setLanguage(lang.code)}
+                        className={`w-full px-4 py-2.5 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2 ${
+                          language === lang.code ? 'bg-gray-100 dark:bg-gray-700' : ''
+                        } first:rounded-t-lg last:rounded-b-lg`}
+                      >
+                        <span className="text-lg">{lang.flag}</span>
+                        <span className="text-sm font-medium">{lang.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                
                 <a
                   href="https://kmrl-prototype1.lovable.app/"
                   className="login-btn"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  AGAMI
+                  {t.login}
                 </a>
               </nav>
 

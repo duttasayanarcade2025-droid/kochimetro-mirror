@@ -2,8 +2,11 @@ import metroInterior from '@/assets/metro-interior.jpg';
 import metroTrain from '@/assets/metro-train.jpg';
 import AnimatedSection from './AnimatedSection';
 import FeatureCards from './FeatureCards';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const WelcomeSection = () => {
+  const { t } = useLanguage();
+  
   return (
     <section className="section-padding bg-white" aria-labelledby="welcome-heading">
       <div className="container-custom">
@@ -22,10 +25,10 @@ const WelcomeSection = () => {
           
           <AnimatedSection animation="fade-in-right" delay={200}>
             <h2 id="welcome-heading" className="text-4xl lg:text-5xl font-heading font-bold text-gray-900 mb-6">
-              Welcome To The Most <span className="text-metro-teal">Advanced Metro System</span> In India
+              {t.welcomeTitle}
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed mb-6 font-medium">
-              Our objective is to make Kochi the first city in the country where the entire public transport system: the metro, the buses, the boats, the auto-rickshaws and the taxies work together as a seamless integrated system; with a common timetable, common ticketing and centralised 'command and control'.
+              {t.welcomeText}
             </p>
             <p className="text-lg text-gray-700 leading-relaxed mb-8">
               The Kochi Metro represents a revolutionary leap in urban transportation, combining cutting-edge technology with sustainable practices. Our commitment extends beyond just moving people—we're creating a comprehensive ecosystem that transforms how the city connects, communicates, and commutes.

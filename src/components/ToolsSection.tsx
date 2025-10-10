@@ -3,9 +3,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import FareCalculator from './FareCalculator';
 import JourneyPlanner from './JourneyPlanner';
 import LiveTrainInfo from './LiveTrainInfo';
-import TomTom3DMap from './TomTom3DMap';
+import Enhanced3DMap from './Enhanced3DMap';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const ToolsSection = () => {
   return (
@@ -45,7 +46,7 @@ const ToolsSection = () => {
           </TabsList>
 
           <TabsContent value="3dmap" className="max-w-6xl mx-auto">
-            <TomTom3DMap />
+            <Enhanced3DMap />
           </TabsContent>
 
           <TabsContent value="journey" className="space-y-6">

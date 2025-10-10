@@ -12,8 +12,10 @@ import {
 import { stations } from '@/data/stationsData';
 import { Badge } from '@/components/ui/badge';
 import { planJourney as calculateJourney, JourneyResult } from '@/lib/journeyPlanner';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const JourneyPlanner = () => {
+  const { t } = useLanguage();
   const [fromStation, setFromStation] = useState<string>('');
   const [toStation, setToStation] = useState<string>('');
   const [journey, setJourney] = useState<JourneyResult | null>(null);
@@ -32,19 +34,19 @@ const JourneyPlanner = () => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Route className="w-5 h-5" />
-          Journey Planner
+          {t.journeyPlannerTitle}
         </CardTitle>
         <CardDescription>
-          Plan your journey and view the complete route
+          {t.journeyPlannerDesc}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium">From Station</label>
+            <label className="text-sm font-medium">{t.from}</label>
             <Select value={fromStation} onValueChange={setFromStation}>
               <SelectTrigger>
-                <SelectValue placeholder="Select origin" />
+                <SelectValue placeholder={t.selectStation} />
               </SelectTrigger>
               <SelectContent>
                 {stations.map((station) => (
@@ -57,10 +59,10 @@ const JourneyPlanner = () => {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">To Station</label>
+            <label className="text-sm font-medium">{t.to}</label>
             <Select value={toStation} onValueChange={setToStation}>
               <SelectTrigger>
-                <SelectValue placeholder="Select destination" />
+                <SelectValue placeholder={t.selectStation} />
               </SelectTrigger>
               <SelectContent>
                 {stations.map((station) => (
@@ -79,7 +81,7 @@ const JourneyPlanner = () => {
           className="w-full"
           size="lg"
         >
-          Plan Journey
+          {t.planJourney}
           <ArrowRight className="w-4 h-4 ml-2" />
         </Button>
 
@@ -90,17 +92,17 @@ const JourneyPlanner = () => {
               <div className="bg-muted/50 p-4 rounded-lg text-center">
                 <Clock className="w-5 h-5 mx-auto mb-2 text-metro-teal" />
                 <p className="text-2xl font-bold">{journey.totalDuration}</p>
-                <p className="text-xs text-muted-foreground">minutes</p>
+                <p className="text-xs text-muted-foreground">{t.minutes}</p>
               </div>
               <div className="bg-muted/50 p-4 rounded-lg text-center">
                 <MapPin className="w-5 h-5 mx-auto mb-2 text-metro-teal" />
                 <p className="text-2xl font-bold">{journey.totalStops}</p>
-                <p className="text-xs text-muted-foreground">stops</p>
+                <p className="text-xs text-muted-foreground">{t.stops}</p>
               </div>
               <div className="bg-muted/50 p-4 rounded-lg text-center">
                 <Route className="w-5 h-5 mx-auto mb-2 text-metro-teal" />
-                <p className="text-2xl font-bold">₹{journey.fare}</p>
-                <p className="text-xs text-muted-foreground">fare</p>
+                <p className="text-2xl font-bold">{t.rupees}{journey.fare}</p>
+                <p className="text-xs text-muted-foreground">{t.fare}</p>
               </div>
             </div>
 

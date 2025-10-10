@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import heroImage from '@/assets/metro-hero-illustration.jpg';
+import { useLanguage } from '@/contexts/LanguageContext';
 const HeroSection = () => {
+  const { t } = useLanguage();
   const [mousePosition, setMousePosition] = useState({
     x: 0,
     y: 0
@@ -50,13 +52,13 @@ const HeroSection = () => {
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-6 animate-fade-in-up">
             <span className="inline-block text-overlay">
-              Kochi Metro
+              {t.heroTitle}
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-white mb-8 max-w-2xl mx-auto text-overlay animate-fade-in-up" style={{
           animationDelay: '0.3s'
         }}>
-            Connecting Lives, Building Tomorrow
+            {t.heroSubtitle}
           </p>
           
           {/* Enhanced Station Labels with Pill-shaped Badges */}
